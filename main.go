@@ -115,7 +115,8 @@ func match(dir string, entries []fs.DirEntry, infos []Info) (
 func rename(dir string, matches map[string]Info) error {
 	for p, i := range matches {
 		ext := filepath.Ext(p)
-		name := i.UploadDate + " - " + i.Title + ext
+		title := strings.ReplaceAll(i.Title, "/", "_")
+		name := i.UploadDate + " - " + title + ext
 		err := os.Rename(p, filepath.Join(dir, name))
 		if err != nil {
 			return err
